@@ -1,31 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-  <div class="w-full max-w-sm p-6 bg-white rounded shadow-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-    <form onsubmit="redirect()" class="space-y-4">
-        <script>
-  function redirect() {
-    event.preventDefault(); 
-    window.location.href = "home.html";
-  }
-</script>
-      <input type="email" name="email" placeholder="Email" required
-             class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
-      <input type="password" name="password" placeholder="Password" required
-             class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
-      <button type="submit"
-              class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
-    </form>
-    <p class="text-center text-sm text-gray-600 mt-4">
-      Don't have an account? <a href="register.html" class="text-blue-500 hover:underline">Register</a>
-    </p>
-  </div>
+<body class="bg-green-100 h-screen flex justify-center items-center">
+  <form action="login.php" method="POST" class="bg-white p-8 rounded shadow-md w-96 space-y-4">
+    <h2 class="text-2xl font-bold text-center mb-4">Login</h2>
+    <input type="email" name="email" placeholder="Email" required class="w-full border p-2 rounded" />
+    <input type="password" name="password" placeholder="Password" required class="w-full border p-2 rounded" />
+    <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Login</button>
+    <p class="text-center text-sm mt-2">Don't have an account? <a href="register.html" class="text-green-600 underline">Register</a></p>
+  </form>
 </body>
 </html>
