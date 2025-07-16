@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-green-100 h-screen flex justify-center items-center">
-  <form action="login.php" method="POST" class="bg-white p-8 rounded shadow-md w-96 space-y-4">
-    <h2 class="text-2xl font-bold text-center mb-4">Login</h2>
-    <input type="email" name="email" placeholder="Email" required class="w-full border p-2 rounded" />
-    <input type="password" name="password" placeholder="Password" required class="w-full border p-2 rounded" />
-    <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Login</button>
-    <p class="text-center text-sm mt-2">Don't have an account? <a href="register.html" class="text-green-600 underline">Register</a></p>
-  </form>
+<body class="min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+    <form id="loginForm" class="space-y-4">
+      <input type="email" id="loginEmail" placeholder="Email" required class="w-full px-4 py-3 border rounded" />
+      <input type="password" id="loginPassword" placeholder="Password" required class="w-full px-4 py-3 border rounded" />
+      <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700">Login</button>
+    </form>
+    <p id="loginMsg" class="text-sm text-center mt-4 text-gray-700"></p>
+    <p class="text-center text-sm mt-4">
+      Don’t have an account? <a href="register.html" class="text-indigo-600 hover:underline">Register</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const message = document.getElementById('loginMsg');
+
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+      const foundUser = users.find(user => user.email === email && user.password === password);
+
+      if (foundUser) {
+        message.textContent = "Login successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = 'home.html';
+        }, 1500);
+      } else {
+        message.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
 </body>
 </html>

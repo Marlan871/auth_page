@@ -1,17 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Register</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-100 h-screen flex justify-center items-center">
-  <form action="register.php" method="POST" class="bg-white p-8 rounded shadow-md w-96 space-y-4">
-    <h2 class="text-2xl font-bold text-center mb-4">Register</h2>
-    <input type="email" name="email" placeholder="Email" required class="w-full border p-2 rounded" />
-    <input type="password" name="password" placeholder="Password" required class="w-full border p-2 rounded" />
-    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Register</button>
-    <p class="text-center text-sm mt-2">Already have an account? <a href="login.html" class="text-blue-600 underline">Login</a></p>
-  </form>
+<body class="min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Register</h2>
+    <form id="registerForm" class="space-y-4">
+      <input type="email" id="regEmail" placeholder="Email" required class="w-full px-4 py-3 border rounded" />
+      <input type="password" id="regPassword" placeholder="Password (must contain special characters)" required class="w-full px-4 py-3 border rounded" />
+      <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded hover:bg-purple-700">Register</button>
+    </form>
+    <p id="regMsg" class="text-sm text-center mt-4 text-gray-700"></p>
+    <p class="text-center text-sm mt-4">
+      Already have an account? <a href="login.html" class="text-purple-600 hover:underline">Login</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value.trim();
+  const message = document.getElementById('regMsg');
+
+  const specialCharPattern = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+
+  if (!email || !password) {
+    message.textContent = "Email and password cannot be empty.";
+    return;
+  }
+
+  if (!specialCharPattern.test(password)) {
+    message.textContent = "Password must contain at least one special character.";
+    return;
+  }
+
+  // Kirim data ke PHP
+  fetch('save_user.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      message.textContent = "Registration successful! Redirecting to login...";
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    } else {
+      message.textContent = data.message;
+    }
+  })
+  .catch(err => {
+    message.textContent = "An error occurred.";
+    console.error(err);
+  });
+});
+
+  </script>
 </body>
 </html>
