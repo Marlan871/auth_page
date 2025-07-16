@@ -22,49 +22,47 @@
 
   <script>
     document.getElementById('registerForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+      e.preventDefault();
 
-  const email = document.getElementById('regEmail').value.trim();
-  const password = document.getElementById('regPassword').value.trim();
-  const message = document.getElementById('regMsg');
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+      const message = document.getElementById('regMsg');
 
-  const specialCharPattern = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+      const specialCharPattern = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
-  if (!email || !password) {
-    message.textContent = "Email and password cannot be empty.";
-    return;
-  }
+      if (!email || !password) {
+        message.textContent = "Email and password cannot be empty.";
+        return;
+      }
 
-  if (!specialCharPattern.test(password)) {
-    message.textContent = "Password must contain at least one special character.";
-    return;
-  }
+      if (!specialCharPattern.test(password)) {
+        message.textContent = "Password must contain at least one special character (e.g., !@#$%^&*).";
+        return;
+      }
 
-  // Kirim data ke PHP
-  fetch('save_user.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email, password })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      message.textContent = "Registration successful! Redirecting to login...";
-      setTimeout(() => {
-        window.location.href = 'login.html';
-      }, 1500);
-    } else {
-      message.textContent = data.message;
-    }
-  })
-  .catch(err => {
-    message.textContent = "An error occurred.";
-    console.error(err);
-  });
-});
-
+      fetch('save_user.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          message.textContent = "Registration successful! Redirecting to login...";
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 1500);
+        } else {
+          message.textContent = data.message;
+        }
+      })
+      .catch(err => {
+        message.textContent = "An error occurred.";
+        console.error(err);
+      });
+    });
   </script>
 </body>
 </html>

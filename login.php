@@ -13,13 +13,15 @@ $users = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 
 foreach ($users as $user) {
     if ($user['email'] === $data['email']) {
-        echo json_encode(['success' => false, 'message' => 'Email already registered']);
-        exit;
+        if ($user['password'] === $data['password']) {
+            echo json_encode(['success' => true, 'message' => 'Login successful']);
+            exit;
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Incorrect password']);
+            exit;
+        }
     }
 }
 
-$users[] = ['email' => $data['email'], 'password' => $data['password']];
-file_put_contents($file, json_encode($users, JSON_PRETTY_PRINT));
-
-echo json_encode(['success' => true, 'message' => 'User registered']);
+echo json_encode(['success' => false, 'message' => 'Email not registered']);
 ?>
