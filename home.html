@@ -6,12 +6,20 @@
   <title>Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
-  <div class="bg-white p-10 rounded-xl shadow-lg text-center w-full max-w-md">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Hello Users</h1>
-    <p class="text-gray-600 mb-6">You are now logged in.</p>
-    <a href="login.html"
-       class="inline-block bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition-colors">Logout</a>
+<body class="min-h-screen bg-blue-100 flex flex-col items-center justify-center">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Dialihkan Ke Perpustakaan</h1>
+    <p class="text-gray-700 text-lg">Redirecting to the library page...</p>
   </div>
+
+  <script>
+    if (localStorage.getItem('loggedIn') === 'true') {
+      setTimeout(() => {
+        window.location.href = 'perpus.html'; // Redirect ke perpus.html
+      }, 1000); // 1 detik
+    } else {
+      window.location.href = 'login.html'; // Kalau belum login
+    }
+  </script>
 </body>
 </html>

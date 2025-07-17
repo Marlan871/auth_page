@@ -4,7 +4,23 @@
         "password": "alan@"
     },
     {
+        "email": "jjj@gmail.com",
+        "password": "ALan12@#2323"
+    },
+    {
+        "email": "lll@gmail.com",
+        "password": "ALan12!@"
+    },
+    {
         "email": "alan@gmail.com",
-        "password": "lan@#"
+        "password": "Lan12!@@"
+    },
+    {
+        "email": "lantud@gmail.com",
+        "password": "LAntud123!@#"
+    },
+    {
+        "email": "lan@gmail.com",
+        "password": "LanN12!@asdf"
     }
 ]
